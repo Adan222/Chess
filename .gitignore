@@ -1,0 +1,53 @@
+# === Java build files ===
+*.class
+*.jar
+*.war
+*.ear
+META-INF/
+
+# === Maven ===
+target/
+
+# === Gradle ===
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# === IntelliJ IDEA ===
+*.iml
+.idea/
+out/
+
+# === Eclipse ===
+*.log
+*.tmp
+*.bak
+*.swp
+.settings/
+.project
+.classpath
+
+# === NetBeans ===
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# === OS / Editor junk ===
+.DS_Store
+Thumbs.db
+*.~*
+*.sw?
+
+# === Logs ===
+*.log
+
+# === Temporary ===
+tmp/
+temp/
+
+# === VS CODE ===
+.vscode
+
