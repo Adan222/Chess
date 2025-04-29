@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+/** Chess */
+import chess.pieces.Piece;
+
 /**
  * This is class that inherit from JPanel, that is used
  * for displaying chess board and pieces
@@ -31,6 +34,7 @@ public class ChessPanel extends JPanel {
 
         initBoard();
         initSquares();
+        initPieces();
     }
 
     /**
@@ -71,5 +75,36 @@ public class ChessPanel extends JPanel {
                 this.boardPanel.add(squarePanels[row][col]);
             }
         }
+    }
+
+    /**
+     * Set default positions for all pieces
+     */
+    private void initPieces() {
+        /** White pieces */
+        this.squarePanels[0][0].add(new PiecePanel(Piece.Type.Rook, Piece.Color.White));
+        this.squarePanels[0][1].add(new PiecePanel(Piece.Type.Knight, Piece.Color.White));
+        this.squarePanels[0][2].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.White));
+        this.squarePanels[0][3].add(new PiecePanel(Piece.Type.Queen, Piece.Color.White));
+        this.squarePanels[0][4].add(new PiecePanel(Piece.Type.King, Piece.Color.White));
+        this.squarePanels[0][5].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.White));
+        this.squarePanels[0][6].add(new PiecePanel(Piece.Type.Knight, Piece.Color.White));
+        this.squarePanels[0][7].add(new PiecePanel(Piece.Type.Rook, Piece.Color.White));
+
+        for (int i = 0; i < 8; i++)
+            this.squarePanels[1][i].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.White));
+
+        /** Black pieces */
+        this.squarePanels[7][0].add(new PiecePanel(Piece.Type.Rook, Piece.Color.Black));
+        this.squarePanels[7][1].add(new PiecePanel(Piece.Type.Knight, Piece.Color.Black));
+        this.squarePanels[7][2].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.Black));
+        this.squarePanels[7][3].add(new PiecePanel(Piece.Type.Queen, Piece.Color.Black));
+        this.squarePanels[7][4].add(new PiecePanel(Piece.Type.King, Piece.Color.Black));
+        this.squarePanels[7][5].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.Black));
+        this.squarePanels[7][6].add(new PiecePanel(Piece.Type.Knight, Piece.Color.Black));
+        this.squarePanels[7][7].add(new PiecePanel(Piece.Type.Rook, Piece.Color.Black));
+
+        for (int i = 0; i < 8; i++)
+            this.squarePanels[6][i].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.Black));
     }
 }
