@@ -1,11 +1,15 @@
 package chess;
 
-/**
- * Hello world!
- *
- */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        try {
+            Game g = new Game();
+            g.run();
+        } catch (Exception error) {
+            System.out.println("Exception message: " + error.getMessage());
+            System.out.println("");
+            System.out.println("Stack trace: ");
+            error.printStackTrace();
+        }
     }
 }
