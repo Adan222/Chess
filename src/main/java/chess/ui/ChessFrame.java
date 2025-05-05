@@ -3,17 +3,23 @@ package chess.ui;
 /** Java */
 import javax.swing.JFrame;
 
+import chess.Game;
+
 /**
  * Window for chess game
  */
 public class ChessFrame extends JFrame {
+    Game game;
+
     private ChessPanel chessPanel;
 
     /**
      * Initialize frame
      */
-    public ChessFrame() {
+    public ChessFrame(Game game) {
         super();
+
+        this.game = game;
 
         initFrame();
         initComponents();
@@ -32,7 +38,11 @@ public class ChessFrame extends JFrame {
      * consist of
      */
     private void initComponents() {
-        chessPanel = new ChessPanel();
+        chessPanel = new ChessPanel(game);
         this.add(chessPanel);
+    }
+
+    public void makeMove(int oldX, int oldY, int newX, int newY) {
+        chessPanel.makeMove(oldX, oldY, newX, newY);
     }
 }

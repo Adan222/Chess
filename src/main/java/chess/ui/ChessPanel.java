@@ -6,10 +6,12 @@ import javax.swing.JLayeredPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 /** Chess */
+import chess.Game;
 import chess.pieces.Piece;
 
 /**
@@ -17,6 +19,8 @@ import chess.pieces.Piece;
  * for displaying chess board and pieces
  */
 public class ChessPanel extends JPanel {
+    Game game;
+
     /** UI components */
     private JPanel boardPanel;
     private JLayeredPane layerPanel;
@@ -29,8 +33,10 @@ public class ChessPanel extends JPanel {
     /**
      * Initialize Chess Panel
      */
-    public ChessPanel() {
+    public ChessPanel(Game game) {
         super(new BorderLayout());
+
+        this.game = game;
 
         initBoard();
         initSquares();
@@ -124,5 +130,35 @@ public class ChessPanel extends JPanel {
      * @param newY
      */
     public void callMove(int oldX, int oldY, int newX, int newY) {
+        game.makeMove(oldX, oldY, newX, newY);
+    }
+
+    /**
+     * This function is responsible for changing the pieces on the board,
+     * if any move were made.
+     * 
+     * @param oldX
+     * @param oldY
+     * @param newX
+     * @param newY
+     */
+    public void makeMove(int oldX, int oldY, int newX, int newY) {
+        JPanel sourceSquare = this.squarePanels[oldX][oldY];
+        JPanel targetSquare = this.squarePanels[newX][newY];
+
+        int componentCount = sourceSquare.getComponentCount();
+        if (componentCount > 0) {
+            Component oldPiece = sourceSquare.getComponent(componentCount - 1);
+
+            // Swap pieces
+            sourceSquare.remove(oldPiece);
+            targetSquare.add(oldPiece);
+
+            // Repaint
+            sourceSquare.revalidate();
+            sourceSquare.repaint();
+            targetSquare.revalidate();
+            targetSquare.repaint();
+        }
     }
 }
