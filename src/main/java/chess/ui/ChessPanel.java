@@ -53,6 +53,10 @@ public class ChessPanel extends JPanel {
 
         layerPanel.setVisible(true);
 
+        BoardListener eventManager = new BoardListener(this);
+        layerPanel.addMouseListener(eventManager);
+        layerPanel.addMouseMotionListener(eventManager);
+
         this.add(layerPanel, BorderLayout.CENTER);
     }
 
@@ -108,5 +112,17 @@ public class ChessPanel extends JPanel {
 
         for (int i = 0; i < 8; i++)
             this.squarePanels[i][6].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.White));
+    }
+
+    /**
+     * This function is responsible for calling business logic
+     * for move with given start and stop board coordinates.
+     * 
+     * @param oldX
+     * @param oldY
+     * @param newX
+     * @param newY
+     */
+    public void callMove(int oldX, int oldY, int newX, int newY) {
     }
 }
