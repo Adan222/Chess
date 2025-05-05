@@ -62,13 +62,15 @@ public class ChessPanel extends JPanel {
     private void initSquares() {
         squarePanels = new JPanel[BOARD_DIMENSION][BOARD_DIMENSION];
 
-        for (int row = 0; row < BOARD_DIMENSION; row++) {
-            for (int col = 0; col < BOARD_DIMENSION; col++) {
+        for (int col = 0; col < BOARD_DIMENSION; col++) {
+            for (int row = 0; row < BOARD_DIMENSION; row++) {
                 squarePanels[row][col] = new JPanel(new GridLayout(1, 1));
 
+                // Settings
                 squarePanels[row][col].setPreferredSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
                 squarePanels[row][col].setSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
 
+                // Color
                 Color squareColor = ((row + col) % 2 == 0 ? Color.WHITE : Color.GRAY);
                 squarePanels[row][col].setBackground(squareColor);
 
@@ -82,29 +84,29 @@ public class ChessPanel extends JPanel {
      */
     private void initPieces() {
         /** White pieces */
-        this.squarePanels[0][0].add(new PiecePanel(Piece.Type.Rook, Piece.Color.White));
-        this.squarePanels[0][1].add(new PiecePanel(Piece.Type.Knight, Piece.Color.White));
-        this.squarePanels[0][2].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.White));
-        this.squarePanels[0][3].add(new PiecePanel(Piece.Type.Queen, Piece.Color.White));
-        this.squarePanels[0][4].add(new PiecePanel(Piece.Type.King, Piece.Color.White));
-        this.squarePanels[0][5].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.White));
-        this.squarePanels[0][6].add(new PiecePanel(Piece.Type.Knight, Piece.Color.White));
-        this.squarePanels[0][7].add(new PiecePanel(Piece.Type.Rook, Piece.Color.White));
+        this.squarePanels[0][0].add(new PiecePanel(Piece.Type.Rook, Piece.Color.Black));
+        this.squarePanels[1][0].add(new PiecePanel(Piece.Type.Knight, Piece.Color.Black));
+        this.squarePanels[2][0].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.Black));
+        this.squarePanels[3][0].add(new PiecePanel(Piece.Type.Queen, Piece.Color.Black));
+        this.squarePanels[4][0].add(new PiecePanel(Piece.Type.King, Piece.Color.Black));
+        this.squarePanels[5][0].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.Black));
+        this.squarePanels[6][0].add(new PiecePanel(Piece.Type.Knight, Piece.Color.Black));
+        this.squarePanels[7][0].add(new PiecePanel(Piece.Type.Rook, Piece.Color.Black));
 
         for (int i = 0; i < 8; i++)
-            this.squarePanels[1][i].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.White));
+            this.squarePanels[i][1].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.Black));
 
         /** Black pieces */
-        this.squarePanels[7][0].add(new PiecePanel(Piece.Type.Rook, Piece.Color.Black));
-        this.squarePanels[7][1].add(new PiecePanel(Piece.Type.Knight, Piece.Color.Black));
-        this.squarePanels[7][2].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.Black));
-        this.squarePanels[7][3].add(new PiecePanel(Piece.Type.Queen, Piece.Color.Black));
-        this.squarePanels[7][4].add(new PiecePanel(Piece.Type.King, Piece.Color.Black));
-        this.squarePanels[7][5].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.Black));
-        this.squarePanels[7][6].add(new PiecePanel(Piece.Type.Knight, Piece.Color.Black));
-        this.squarePanels[7][7].add(new PiecePanel(Piece.Type.Rook, Piece.Color.Black));
+        this.squarePanels[0][7].add(new PiecePanel(Piece.Type.Rook, Piece.Color.White));
+        this.squarePanels[1][7].add(new PiecePanel(Piece.Type.Knight, Piece.Color.White));
+        this.squarePanels[2][7].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.White));
+        this.squarePanels[3][7].add(new PiecePanel(Piece.Type.Queen, Piece.Color.White));
+        this.squarePanels[4][7].add(new PiecePanel(Piece.Type.King, Piece.Color.White));
+        this.squarePanels[5][7].add(new PiecePanel(Piece.Type.Bishop, Piece.Color.White));
+        this.squarePanels[6][7].add(new PiecePanel(Piece.Type.Knight, Piece.Color.White));
+        this.squarePanels[7][7].add(new PiecePanel(Piece.Type.Rook, Piece.Color.White));
 
         for (int i = 0; i < 8; i++)
-            this.squarePanels[6][i].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.Black));
+            this.squarePanels[i][6].add(new PiecePanel(Piece.Type.Pawn, Piece.Color.White));
     }
 }
