@@ -69,4 +69,8 @@ public class ChessBoard {
 
     public void makeMove(int oldX, int oldY, int newX, int newY) {
     }
+
+    public Field[][] getBoard() {
+        return board;
+    }
 }

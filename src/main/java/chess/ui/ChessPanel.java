@@ -9,9 +9,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.util.List;
 
 /** Chess */
 import chess.Game;
+import chess.Move;
 import chess.pieces.Piece;
 
 /**
@@ -159,6 +162,52 @@ public class ChessPanel extends JPanel {
             sourceSquare.repaint();
             targetSquare.revalidate();
             targetSquare.repaint();
+        }
+    }
+
+    /**
+     * This function is invoked when we click on piece
+     * and should show the available moves for the clicked
+     * piece.
+     * 
+     * @param x
+     * @param y
+     */
+    public void callShowMoves(int x, int y) {
+        List<Move> moveList = game.getAvailableMoves(x, y);
+
+        for (Move move : moveList) {
+            System.out.println(move.destinationX + " " + move.destinationY);
+
+            JPanel square = squarePanels[move.destinationX][move.destinationY];
+
+            // Add CirclePanel
+            CirclePanel circle = new CirclePanel();
+            circle.setPreferredSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
+            square.add(circle);
+            square.revalidate();
+            square.repaint();
+        }
+    }
+
+    /**
+     * Hide available moves from the board
+     * 
+     * @param x
+     * @param y
+     */
+    public void callHideMoves(int x, int y) {
+        List<Move> moveList = game.getAvailableMoves(x, y);
+
+        for (Move move : moveList) {
+            JPanel square = squarePanels[move.destinationX][move.destinationY];
+
+            int componentCount = square.getComponentCount();
+            if (componentCount > 0) {
+                square.remove(componentCount - 1);
+                square.revalidate();
+                square.repaint();
+            }
         }
     }
 }

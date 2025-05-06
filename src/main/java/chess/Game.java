@@ -1,9 +1,12 @@
 package chess;
 
-import chess.board.ChessBoard;
-import chess.ui.ChessFrame;
-
 /** Java */
+import java.util.List;
+
+/** Chess */
+import chess.board.ChessBoard;
+import chess.board.MoveValidator;
+import chess.ui.ChessFrame;
 
 public class Game {
     private ChessFrame chessFrame;
@@ -28,5 +31,15 @@ public class Game {
             chessBoard.makeMove(oldX, oldY, newX, newY);
             chessFrame.makeMove(oldX, oldY, newX, newY);
         }
+    }
+
+    /**
+     * Get list of all available moves
+     * 
+     * @return
+     */
+    public List<Move> getAvailableMoves(int x, int y) {
+        MoveValidator validator = new MoveValidator(chessBoard);
+        return validator.getMovesFor(x, y);
     }
 }

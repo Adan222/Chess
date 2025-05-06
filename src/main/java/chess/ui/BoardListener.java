@@ -14,9 +14,15 @@ import java.awt.event.MouseMotionListener;
 public class BoardListener implements MouseListener, MouseMotionListener {
     ChessPanel board;
 
+    // Drag & drop
     private boolean isDragging;
     private int oldX;
     private int oldY;
+
+    // Click
+    private boolean isClicked;
+    private int x;
+    private int y;
 
     public BoardListener(ChessPanel board) {
         this.board = board;
@@ -36,6 +42,36 @@ public class BoardListener implements MouseListener, MouseMotionListener {
         this.oldY = (int) coords.getY() / 100;
 
         System.out.println("Pressed: " + oldX + " " + oldY);
+
+        int newX = (int) coords.getX() / 100;
+        int newY = (int) coords.getY() / 100;
+
+        // If we are clicked, then
+        // - If we clicked on the same piece, then disable the move list.
+        // - If we clicked on the other piece, we have to hide moves for
+        // the previous piece and show for the new one.
+        if (isClicked) {
+            if (x == newX && y == newY) {
+                board.callHideMoves(x, y);
+                isClicked = false;
+            } else {
+                board.callHideMoves(x, y);
+                board.callShowMoves(newX, newY);
+
+                x = newX;
+                y = newY;
+            }
+        }
+
+        // If we wasn't clicked, then show moves for this piece and save
+        // state.
+        else {
+            x = newX;
+            y = newY;
+            isClicked = true;
+
+            board.callShowMoves(x, y);
+        }
     }
 
     public void mouseReleased(MouseEvent e) {
