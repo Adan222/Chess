@@ -8,6 +8,7 @@ import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
 import chess.pieces.Pawn;
+import chess.pieces.Piece;
 
 /**
  * This class is responsible for holding
@@ -67,7 +68,23 @@ public class ChessBoard {
             board[i][6].setPiece(new Pawn(Color.White));
     }
 
+    /**
+     * * Make move on the board
+     * 
+     * @param oldX
+     * @param oldY
+     * @param newX
+     * @param newY
+     */
     public void makeMove(int oldX, int oldY, int newX, int newY) {
+        Field sourceField = board[oldX][oldY];
+        Field targetField = board[newX][newY];
+
+        Piece sourcePiece = sourceField.getPiece();
+
+        // Swap pieces
+        targetField.setPiece(sourcePiece);
+        sourceField.setPiece(null);
     }
 
     public Field[][] getBoard() {

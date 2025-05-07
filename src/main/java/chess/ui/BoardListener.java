@@ -85,6 +85,11 @@ public class BoardListener implements MouseListener, MouseMotionListener {
 
             System.out.println("Released: " + newX + " " + newY);
 
+            if (isClicked) {
+                isClicked = false;
+                board.callHideMoves(x, y);
+            }
+
             board.callMove(oldX, oldY, newX, newY);
         }
     }

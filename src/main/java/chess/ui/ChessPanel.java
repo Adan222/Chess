@@ -137,18 +137,30 @@ public class ChessPanel extends JPanel {
     }
 
     /**
-     * This function is responsible for changing the pieces on the board,
-     * if any move were made.
+     * Remove piece from given field
      * 
-     * @param oldX
-     * @param oldY
-     * @param newX
-     * @param newY
+     * @param square
      */
-    public void makeMove(int oldX, int oldY, int newX, int newY) {
-        JPanel sourceSquare = this.squarePanels[oldX][oldY];
-        JPanel targetSquare = this.squarePanels[newX][newY];
+    private void removePieceFromField(JPanel square) {
+        int sourceComponentCount = square.getComponentCount();
+        if (sourceComponentCount > 0) {
+            Component oldPiece = square.getComponent(sourceComponentCount - 1);
 
+            // Swap pieces
+            square.remove(oldPiece);
+
+            // Repaint
+            square.revalidate();
+            square.repaint();
+        }
+    }
+
+    /**
+     * 
+     * @param square
+     * @param piece
+     */
+    private void swapPiecesOnFields(JPanel sourceSquare, JPanel targetSquare) {
         int componentCount = sourceSquare.getComponentCount();
         if (componentCount > 0) {
             Component oldPiece = sourceSquare.getComponent(componentCount - 1);
@@ -163,6 +175,23 @@ public class ChessPanel extends JPanel {
             targetSquare.revalidate();
             targetSquare.repaint();
         }
+    }
+
+    /**
+     * This function is responsible for changing the pieces on the board,
+     * if any move were made.
+     * 
+     * @param oldX
+     * @param oldY
+     * @param newX
+     * @param newY
+     */
+    public void makeMove(int oldX, int oldY, int newX, int newY) {
+        JPanel sourceSquare = this.squarePanels[oldX][oldY];
+        JPanel targetSquare = this.squarePanels[newX][newY];
+
+        removePieceFromField(targetSquare);
+        swapPiecesOnFields(sourceSquare, targetSquare);
     }
 
     /**
@@ -204,7 +233,9 @@ public class ChessPanel extends JPanel {
 
             int componentCount = square.getComponentCount();
             if (componentCount > 0) {
-                square.remove(componentCount - 1);
+                Component oldPiece = square.getComponent(componentCount - 1);
+
+                square.remove(oldPiece);
                 square.revalidate();
                 square.repaint();
             }
