@@ -2,6 +2,7 @@ package chess.ui;
 
 /** Java */
 import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
 import javax.swing.JLayeredPane;
 
 import java.awt.BorderLayout;
@@ -9,7 +10,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.util.List;
 
 /** Chess */
@@ -77,9 +77,10 @@ public class ChessPanel extends JPanel {
 
         for (int col = 0; col < BOARD_DIMENSION; col++) {
             for (int row = 0; row < BOARD_DIMENSION; row++) {
-                squarePanels[row][col] = new JPanel(new GridLayout(1, 1));
+                squarePanels[row][col] = new JPanel();
 
                 // Settings
+                squarePanels[row][col].setLayout(new OverlayLayout(squarePanels[row][col]));
                 squarePanels[row][col].setPreferredSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
                 squarePanels[row][col].setSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
 
@@ -212,8 +213,9 @@ public class ChessPanel extends JPanel {
 
             // Add CirclePanel
             CirclePanel circle = new CirclePanel();
-            circle.setPreferredSize(new Dimension(SQUARE_SIZE, SQUARE_SIZE));
             square.add(circle);
+
+            square.setComponentZOrder(circle, 0);
             square.revalidate();
             square.repaint();
         }
@@ -231,14 +233,15 @@ public class ChessPanel extends JPanel {
         for (Move move : moveList) {
             JPanel square = squarePanels[move.destinationX][move.destinationY];
 
-            int componentCount = square.getComponentCount();
-            if (componentCount > 0) {
-                Component oldPiece = square.getComponent(componentCount - 1);
+            // We can't relay on getComponentCount() if we change Z-order
+            for (Component comp : square.getComponents())
+                if (comp instanceof CirclePanel) {
+                    square.remove(comp);
+                    break;
+                }
 
-                square.remove(oldPiece);
-                square.revalidate();
-                square.repaint();
-            }
+            square.revalidate();
+            square.repaint();
         }
     }
 }
