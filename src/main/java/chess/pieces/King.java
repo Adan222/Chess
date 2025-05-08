@@ -72,8 +72,16 @@ public class King extends Piece {
             boolean isWhite = king.getColor() == Color.White;
 
             int my = isWhite ? 7 : 0;
-            moveList.add(new Move(x, y, x + 2, my, Move.Type.Castling));
-            moveList.add(new Move(x, y, x - 2, my, Move.Type.Castling));
+
+            // Long castling
+            int lcx = x - 2;
+            if (board[lcx][my].getPiece() == null)
+                moveList.add(new Move(x, y, x - 2, my, Move.Type.Castling));
+
+            // Short castling
+            int scx = x + 2;
+            if (board[scx][my].getPiece() == null)
+                moveList.add(new Move(x, y, x + 2, my, Move.Type.Castling));
         }
 
         // TODO: Implement checking move for check
