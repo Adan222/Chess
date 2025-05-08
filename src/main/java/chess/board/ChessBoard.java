@@ -75,8 +75,13 @@ public class ChessBoard {
      * @param move
      */
     public void makeMove(Move move) {
-        Field sourceField = board[move.sourceX][move.sourceY];
-        Field targetField = board[move.destinationX][move.destinationY];
+        int sourceX = move.getSourceX();
+        int sourceY = move.getSourceY();
+        int targetX = move.getTargetX();
+        int targetY = move.getTargetY();
+
+        Field sourceField = board[sourceX][sourceY];
+        Field targetField = board[targetX][targetY];
 
         Piece sourcePiece = sourceField.getPiece();
 

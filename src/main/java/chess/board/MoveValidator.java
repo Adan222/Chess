@@ -24,14 +24,19 @@ public class MoveValidator {
     /** Validation functions */
 
     private boolean hasPositionChanged(Move move) {
-        return move.sourceX != move.destinationX || move.sourceY != move.destinationY;
+        return (move.getSourceX() != move.getTargetX()) || (move.getSourceY() != move.getTargetY());
     }
 
     private boolean isTargetOpponentPiece(Move move) {
         Field[][] board = chessBoard.getBoard();
 
-        Piece source = board[move.sourceX][move.sourceY].getPiece();
-        Piece target = board[move.destinationX][move.destinationY].getPiece();
+        int sourceX = move.getSourceX();
+        int sourceY = move.getSourceY();
+        int targetX = move.getTargetX();
+        int targetY = move.getTargetY();
+
+        Piece source = board[sourceX][sourceY].getPiece();
+        Piece target = board[targetX][targetY].getPiece();
 
         // Return true if the target is not null and is of a different color
         return target == null || source.getColor() != target.getColor();

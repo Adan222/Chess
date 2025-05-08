@@ -185,8 +185,13 @@ public class ChessPanel extends JPanel {
      * @param move
      */
     public void makeMove(Move move) {
-        JPanel sourceSquare = this.squarePanels[move.sourceX][move.sourceY];
-        JPanel targetSquare = this.squarePanels[move.destinationX][move.destinationY];
+        int sourceX = move.getSourceX();
+        int sourceY = move.getSourceY();
+        int targetX = move.getTargetX();
+        int targetY = move.getTargetY();
+
+        JPanel sourceSquare = this.squarePanels[sourceX][sourceY];
+        JPanel targetSquare = this.squarePanels[targetX][targetY];
 
         removePieceFromField(targetSquare);
         swapPiecesOnFields(sourceSquare, targetSquare);
@@ -204,9 +209,10 @@ public class ChessPanel extends JPanel {
         List<Move> moveList = game.getAvailableMoves(x, y);
 
         for (Move move : moveList) {
-            System.out.println(move.destinationX + " " + move.destinationY);
+            int targetX = move.getTargetX();
+            int targetY = move.getTargetY();
 
-            JPanel square = squarePanels[move.destinationX][move.destinationY];
+            JPanel square = squarePanels[targetX][targetY];
 
             // Add CirclePanel
             CirclePanel circle = new CirclePanel();
@@ -228,7 +234,10 @@ public class ChessPanel extends JPanel {
         List<Move> moveList = game.getAvailableMoves(x, y);
 
         for (Move move : moveList) {
-            JPanel square = squarePanels[move.destinationX][move.destinationY];
+            int targetX = move.getTargetX();
+            int targetY = move.getTargetY();
+
+            JPanel square = squarePanels[targetX][targetY];
 
             // We can't relay on getComponentCount() if we change Z-order
             for (Component comp : square.getComponents())

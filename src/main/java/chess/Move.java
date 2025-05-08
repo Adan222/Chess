@@ -12,39 +12,67 @@ public class Move {
         Castling
     }
 
+    /** Variables */
+
     private Piece sourcePiece;
     private Piece targetPiece;
 
-    public int sourceX;
-    public int sourceY;
+    private int sourceX;
+    private int sourceY;
 
-    public int destinationX;
-    public int destinationY;
+    private int targetX;
+    private int targetY;
 
     Type type;
 
-    public Move(int sourceX, int sourceY, int destinationX, int destinationY, Type type) {
+    public Move(int sourceX, int sourceY, int targetX, int targetY, Type type) {
         this.sourceX = sourceX;
         this.sourceY = sourceY;
-        this.destinationX = destinationX;
-        this.destinationY = destinationY;
+        this.targetX = targetX;
+        this.targetY = targetY;
 
         this.type = type;
     }
 
-    public Move(int sourceX, int sourceY, int destinationX, int destinationY, ChessBoard chessBoard) {
+    public Move(int sourceX, int sourceY, int targetX, int targetY, ChessBoard chessBoard) {
         this.sourceX = sourceX;
         this.sourceY = sourceY;
-        this.destinationX = destinationX;
-        this.destinationY = destinationY;
+        this.targetX = targetX;
+        this.targetY = targetY;
 
         Field[][] board = chessBoard.getBoard();
         this.sourcePiece = board[sourceX][sourceY].getPiece();
-        this.targetPiece = board[destinationX][destinationY].getPiece();
+        this.targetPiece = board[targetX][targetY].getPiece();
 
         if (targetPiece != null)
             this.type = Type.Beat;
         else
             this.type = Type.Movement;
+    }
+
+    /** Getters */
+
+    public int getSourceX() {
+        return sourceX;
+    }
+
+    public int getSourceY() {
+        return sourceY;
+    }
+
+    public int getTargetX() {
+        return targetX;
+    }
+
+    public int getTargetY() {
+        return targetY;
+    }
+
+    public Piece getSourcePiece() {
+        return sourcePiece;
+    }
+
+    public Piece getTargetPiece() {
+        return targetPiece;
     }
 }
