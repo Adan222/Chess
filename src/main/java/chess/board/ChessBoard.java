@@ -4,6 +4,7 @@ package chess.board;
 import chess.pieces.Queen;
 import chess.pieces.Piece.Color;
 import chess.pieces.Rook;
+import chess.Move;
 import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
@@ -71,14 +72,11 @@ public class ChessBoard {
     /**
      * * Make move on the board
      * 
-     * @param oldX
-     * @param oldY
-     * @param newX
-     * @param newY
+     * @param move
      */
-    public void makeMove(int oldX, int oldY, int newX, int newY) {
-        Field sourceField = board[oldX][oldY];
-        Field targetField = board[newX][newY];
+    public void makeMove(Move move) {
+        Field sourceField = board[move.sourceX][move.sourceY];
+        Field targetField = board[move.destinationX][move.destinationY];
 
         Piece sourcePiece = sourceField.getPiece();
 

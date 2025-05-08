@@ -182,14 +182,11 @@ public class ChessPanel extends JPanel {
      * This function is responsible for changing the pieces on the board,
      * if any move were made.
      * 
-     * @param oldX
-     * @param oldY
-     * @param newX
-     * @param newY
+     * @param move
      */
-    public void makeMove(int oldX, int oldY, int newX, int newY) {
-        JPanel sourceSquare = this.squarePanels[oldX][oldY];
-        JPanel targetSquare = this.squarePanels[newX][newY];
+    public void makeMove(Move move) {
+        JPanel sourceSquare = this.squarePanels[move.sourceX][move.sourceY];
+        JPanel targetSquare = this.squarePanels[move.destinationX][move.destinationY];
 
         removePieceFromField(targetSquare);
         swapPiecesOnFields(sourceSquare, targetSquare);

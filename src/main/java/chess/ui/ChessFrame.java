@@ -42,7 +42,7 @@ public class ChessFrame extends JFrame {
         this.add(chessPanel);
     }
 
-    public void makeMove(int oldX, int oldY, int newX, int newY) {
-        chessPanel.makeMove(oldX, oldY, newX, newY);
+    public ChessPanel getChessPanel() {
+        return chessPanel;
     }
 }
