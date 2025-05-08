@@ -5,6 +5,7 @@ import java.util.List;
 
 /** Chess */
 import chess.Move;
+import chess.MoveHistory;
 import chess.board.ChessBoard;
 
 /** Virtual class for implementing chess pieces movement */
@@ -38,7 +39,7 @@ public class Piece {
      * Virtual function for getting all possible moves.
      * Each class should Overwrite this method.
      */
-    public List<Move> getMoves(int x, int y, ChessBoard board) {
+    public List<Move> getMoves(int x, int y, ChessBoard board, MoveHistory moveHistory) {
         throw new UnsupportedOperationException("Unimplemented method 'getMoves'");
     }
 }

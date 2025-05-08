@@ -11,6 +11,7 @@ import chess.ui.ChessFrame;
 public class Game {
     private ChessFrame chessFrame;
     private ChessBoard chessBoard;
+    private MoveHistory moveHistory;
 
     public Game() {
         initComponents();
@@ -19,6 +20,7 @@ public class Game {
     private void initComponents() {
         chessFrame = new ChessFrame(this);
         chessBoard = new ChessBoard();
+        moveHistory = new MoveHistory();
     }
 
     public void run() {
@@ -26,12 +28,13 @@ public class Game {
     }
 
     public void makeMove(int oldX, int oldY, int newX, int newY) {
-        MoveValidator validator = new MoveValidator(chessBoard);
+        MoveValidator validator = new MoveValidator(chessBoard, moveHistory);
 
         Move move = new Move(oldX, oldY, newX, newY, chessBoard);
         if (validator.validate(move)) {
             chessBoard.makeMove(move);
             chessFrame.getChessPanel().makeMove(move);
+            moveHistory.addMove(move);
         }
     }
 
@@ -41,7 +44,7 @@ public class Game {
      * @return
      */
     public List<Move> getAvailableMoves(int x, int y) {
-        MoveValidator validator = new MoveValidator(chessBoard);
+        MoveValidator validator = new MoveValidator(chessBoard, moveHistory);
         return validator.getMovesFor(x, y);
     }
 }

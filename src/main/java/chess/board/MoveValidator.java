@@ -7,15 +7,18 @@ import java.util.List;
 /** Chess */
 import chess.pieces.Piece;
 import chess.Move;
+import chess.MoveHistory;
 
 /**
  * Class for validating moves
  */
 public class MoveValidator {
     private ChessBoard chessBoard;
+    private MoveHistory moveHistory;
 
-    public MoveValidator(ChessBoard chessBoard) {
+    public MoveValidator(ChessBoard chessBoard, MoveHistory moveHistory) {
         this.chessBoard = chessBoard;
+        this.moveHistory = moveHistory;
     }
 
     /** Validation functions */
@@ -63,7 +66,7 @@ public class MoveValidator {
         if (piece == null)
             return new ArrayList<Move>();
 
-        List<Move> pieceMoves = piece.getMoves(x, y, chessBoard);
+        List<Move> pieceMoves = piece.getMoves(x, y, chessBoard, moveHistory);
 
         return pieceMoves;
     }

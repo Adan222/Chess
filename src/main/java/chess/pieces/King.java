@@ -6,6 +6,7 @@ import java.util.List;
 
 /** Chess */
 import chess.Move;
+import chess.MoveHistory;
 import chess.board.ChessBoard;
 
 public class King extends Piece {
@@ -14,7 +15,7 @@ public class King extends Piece {
     }
 
     @Override
-    public List<Move> getMoves(int x, int y, ChessBoard chessBoard) {
+    public List<Move> getMoves(int x, int y, ChessBoard chessBoard, MoveHistory moveHistory) {
         List<Move> moveList = new ArrayList<>();
         chess.board.Field[][] board = chessBoard.getBoard();
 
