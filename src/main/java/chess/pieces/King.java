@@ -14,6 +14,23 @@ public class King extends Piece {
         super(color, Piece.Type.King);
     }
 
+    /**
+     * Check if King has moved before
+     * 
+     * @param moveHistory
+     * @return true if moved, false if not
+     */
+    private boolean kingMoved(MoveHistory moveHistory) {
+        List<Move> moveHistoryList = moveHistory.getHistoryList();
+
+        for (Move move : moveHistoryList) {
+            if (move.getSourcePiece() == this)
+                return true;
+        }
+
+        return false;
+    }
+
     @Override
     public List<Move> getMoves(int x, int y, ChessBoard chessBoard, MoveHistory moveHistory) {
         List<Move> moveList = new ArrayList<>();
@@ -49,7 +66,16 @@ public class King extends Piece {
             }
         }
 
-        // TODO: Implement castling
+        // Castling
+        if (!kingMoved(moveHistory)) {
+            Piece king = board[x][y].getPiece();
+            boolean isWhite = king.getColor() == Color.White;
+
+            int my = isWhite ? 7 : 0;
+            moveList.add(new Move(x, y, x + 2, my, Move.Type.Castling));
+            moveList.add(new Move(x, y, x - 2, my, Move.Type.Castling));
+        }
+
         // TODO: Implement checking move for check
 
         return moveList;
