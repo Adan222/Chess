@@ -5,6 +5,7 @@ import chess.pieces.Queen;
 import chess.pieces.Piece.Color;
 import chess.pieces.Rook;
 import chess.Move;
+import chess.Move.Type;
 import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
@@ -69,6 +70,14 @@ public class ChessBoard {
             board[i][6].setPiece(new Pawn(Color.White));
     }
 
+    private void swapPiece(Field sourceField, Field targetField) {
+        Piece sourcePiece = sourceField.getPiece();
+
+        // Swap pieces
+        targetField.setPiece(sourcePiece);
+        sourceField.setPiece(null);
+    }
+
     /**
      * * Make move on the board
      * 
@@ -79,6 +88,23 @@ public class ChessBoard {
         int sourceY = move.getSourceY();
         int targetX = move.getTargetX();
         int targetY = move.getTargetY();
+
+        Type type = move.getType();
+        if (type == Type.ShortCastling || type == Type.LongCastling) {
+
+            // Move King
+            swapPiece(board[sourceX][sourceY], board[targetX][targetY]);
+
+            // Move Rook
+            if (type == Type.ShortCastling || type == Type.LongCastling) {
+                int rx = (type == Type.ShortCastling) ? targetX - 1 : targetX + 1;
+                int rookX = type == Type.ShortCastling ? 7 : 0;
+
+                swapPiece(board[rookX][sourceY], board[rx][targetY]);
+            }
+
+            return;
+        }
 
         Field sourceField = board[sourceX][sourceY];
         Field targetField = board[targetX][targetY];

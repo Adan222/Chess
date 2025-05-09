@@ -73,15 +73,21 @@ public class King extends Piece {
 
             int my = isWhite ? 7 : 0;
 
+            // TODO: Check if Rook moved
+
             // Long castling
             int lcx = x - 2;
-            if (board[lcx][my].getPiece() == null)
-                moveList.add(new Move(x, y, x - 2, my, Move.Type.Castling));
+            if (board[lcx][my].getPiece() == null) {
+                Piece rook = board[0][my].getPiece();
+                moveList.add(new Move(x, y, x - 2, my, this, rook, Move.Type.LongCastling));
+            }
 
             // Short castling
             int scx = x + 2;
-            if (board[scx][my].getPiece() == null)
-                moveList.add(new Move(x, y, x + 2, my, Move.Type.Castling));
+            if (board[scx][my].getPiece() == null) {
+                Piece rook = board[7][my].getPiece();
+                moveList.add(new Move(x, y, x + 2, my, this, rook, Move.Type.ShortCastling));
+            }
         }
 
         // TODO: Implement checking move for check

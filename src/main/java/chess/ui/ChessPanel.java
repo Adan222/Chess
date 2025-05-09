@@ -15,6 +15,7 @@ import java.util.List;
 /** Chess */
 import chess.Game;
 import chess.Move;
+import chess.Move.Type;
 import chess.pieces.Piece;
 
 /**
@@ -189,6 +190,23 @@ public class ChessPanel extends JPanel {
         int sourceY = move.getSourceY();
         int targetX = move.getTargetX();
         int targetY = move.getTargetY();
+
+        Type type = move.getType();
+        if (type == Type.ShortCastling || type == Type.LongCastling) {
+
+            // Move King
+            swapPiecesOnFields(squarePanels[sourceX][sourceY], squarePanels[targetX][targetY]);
+
+            // Move Rook
+            if (type == Type.ShortCastling || type == Type.LongCastling) {
+                int rx = (type == Type.ShortCastling) ? targetX - 1 : targetX + 1;
+                int rookX = type == Type.ShortCastling ? 7 : 0;
+
+                swapPiecesOnFields(squarePanels[rookX][sourceY], squarePanels[rx][targetY]);
+            }
+
+            return;
+        }
 
         JPanel sourceSquare = this.squarePanels[sourceX][sourceY];
         JPanel targetSquare = this.squarePanels[targetX][targetY];

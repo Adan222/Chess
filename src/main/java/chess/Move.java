@@ -9,7 +9,8 @@ public class Move {
         Movement,
         Beat,
         EnPassant,
-        Castling
+        ShortCastling,
+        LongCastling
     }
 
     /** Variables */
@@ -86,5 +87,9 @@ public class Move {
 
     public Piece getTargetPiece() {
         return targetPiece;
+    }
+
+    public Type getType() {
+        return type;
     }
 }
