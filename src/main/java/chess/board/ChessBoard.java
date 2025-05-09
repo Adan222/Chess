@@ -104,6 +104,21 @@ public class ChessBoard {
             }
 
             return;
+        } else if (type == Type.EnPassant) {
+
+            // Move source Pawn
+            swapPiece(board[sourceX][sourceY], board[targetX][targetY]);
+
+            // Remove target Pawn
+            Piece sourcePiece = move.getSourcePiece();
+
+            int targetPawnX = targetX;
+            int dy = (sourcePiece.getColor() == Color.White) ? 1 : -1;
+            int targetPawnY = targetY + dy;
+
+            board[targetPawnX][targetPawnY].setPiece(null);
+
+            return;
         }
 
         Field sourceField = board[sourceX][sourceY];

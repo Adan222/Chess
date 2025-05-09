@@ -206,6 +206,21 @@ public class ChessPanel extends JPanel {
             }
 
             return;
+        } else if (type == Type.EnPassant) {
+
+            // Move source Pawn
+            swapPiecesOnFields(squarePanels[sourceX][sourceY], squarePanels[targetX][targetY]);
+
+            // Remove target Pawn
+            Piece sourcePiece = move.getSourcePiece();
+
+            int targetPawnX = targetX;
+            int dy = (sourcePiece.getColor() == Piece.Color.White) ? 1 : -1;
+            int targetPawnY = targetY + dy;
+
+            removePieceFromField(squarePanels[targetPawnX][targetPawnY]);
+
+            return;
         }
 
         JPanel sourceSquare = this.squarePanels[sourceX][sourceY];
