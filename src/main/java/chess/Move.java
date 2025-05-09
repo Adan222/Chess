@@ -10,7 +10,8 @@ public class Move {
         Beat,
         EnPassant,
         ShortCastling,
-        LongCastling
+        LongCastling,
+        Promotion
     }
 
     /** Variables */

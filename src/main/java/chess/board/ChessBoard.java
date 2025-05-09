@@ -89,6 +89,7 @@ public class ChessBoard {
         int targetX = move.getTargetX();
         int targetY = move.getTargetY();
 
+        // TODO: Make it switch
         Type type = move.getType();
         if (type == Type.ShortCastling || type == Type.LongCastling) {
 
@@ -117,6 +118,17 @@ public class ChessBoard {
             int targetPawnY = targetY + dy;
 
             board[targetPawnX][targetPawnY].setPiece(null);
+
+            return;
+        } else if (type == Type.Promotion) {
+            Field sourceField = board[sourceX][sourceY];
+            Field targetField = board[targetX][targetY];
+
+            Piece sourcePiece = sourceField.getPiece();
+
+            // TODO: Make UI and choose piece
+            targetField.setPiece(new Queen(sourcePiece.getColor()));
+            sourceField.setPiece(null);
 
             return;
         }

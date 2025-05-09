@@ -24,11 +24,13 @@ public class Pawn extends Piece {
 
         int moveDirection = isWhite ? -1 : 1; // White moves up, Black moves down
         int startRow = isWhite ? 6 : 1;
+        int endRow = isWhite ? 0 : 7;
 
         // One-step forward move
         int forwardY = y + moveDirection;
         if (isWithinBounds(x, forwardY) && board[x][forwardY].getPiece() == null) {
-            moveList.add(new Move(x, y, x, forwardY, this, null, Move.Type.Movement));
+            Move.Type oneForwardType = (forwardY == endRow) ? Move.Type.Promotion : Move.Type.Movement;
+            moveList.add(new Move(x, y, x, forwardY, this, null, oneForwardType));
 
             // Two-step forward move from starting row
             int doubleForwardY = y + 2 * moveDirection;
@@ -46,8 +48,10 @@ public class Pawn extends Piece {
                 continue;
 
             Piece targetPiece = board[targetX][targetY].getPiece();
-            if (targetPiece != null && targetPiece.getColor() != pawn.getColor())
-                moveList.add(new Move(x, y, targetX, targetY, this, targetPiece, Move.Type.Beat));
+            if (targetPiece != null && targetPiece.getColor() != pawn.getColor()) {
+                Move.Type oneForwardType = (targetY == endRow) ? Move.Type.Promotion : Move.Type.Beat;
+                moveList.add(new Move(x, y, targetX, targetY, this, targetPiece, oneForwardType));
+            }
         }
 
         // En Passant

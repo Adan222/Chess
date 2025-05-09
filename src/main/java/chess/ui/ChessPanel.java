@@ -191,6 +191,7 @@ public class ChessPanel extends JPanel {
         int targetX = move.getTargetX();
         int targetY = move.getTargetY();
 
+        // TODO: Make it switch
         Type type = move.getType();
         if (type == Type.ShortCastling || type == Type.LongCastling) {
 
@@ -219,6 +220,18 @@ public class ChessPanel extends JPanel {
             int targetPawnY = targetY + dy;
 
             removePieceFromField(squarePanels[targetPawnX][targetPawnY]);
+
+            return;
+        } else if (type == Type.Promotion) {
+            JPanel sourceSquare = this.squarePanels[sourceX][sourceY];
+            JPanel targetSquare = this.squarePanels[targetX][targetY];
+
+            removePieceFromField(sourceSquare);
+            removePieceFromField(targetSquare);
+
+            targetSquare.add(new PiecePanel(Piece.Type.Queen, move.getSourcePiece().getColor()));
+            targetSquare.revalidate();
+            targetSquare.repaint();
 
             return;
         }
