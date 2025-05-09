@@ -50,7 +50,31 @@ public class Pawn extends Piece {
                 moveList.add(new Move(x, y, targetX, targetY, Move.Type.Beat));
         }
 
-        // TODO: Implement En Passant
+        // En Passant
+        Move lastMove = getLastMove(moveHistory);
+        if (lastMove != null) {
+            Piece piece = lastMove.getSourcePiece();
+            if (piece instanceof Pawn) {
+                // Pawn has to be on the left or right from our pawn
+                int dx = lastMove.getTargetX() - x;
+
+                // Piece had to move two fields
+                int mdy = lastMove.getTargetY() - lastMove.getSourceY();
+
+                if (Math.abs(dx) == 1 && Math.abs(mdy) == 2) {
+                    boolean isTargetWhite = piece.getColor() == Color.White;
+
+                    // Get left or right of our piece
+                    int enx = x + dx;
+
+                    // The move is always "behind" the target Pawn
+                    int targetPieceY = lastMove.getTargetY();
+                    int eny = targetPieceY + (isTargetWhite ? 1 : -1);
+
+                    moveList.add(new Move(x, y, enx, eny, Move.Type.EnPassant));
+                }
+            }
+        }
 
         return moveList;
     }
@@ -58,4 +82,20 @@ public class Pawn extends Piece {
     private boolean isWithinBounds(int x, int y) {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
+
+    /**
+     * Get the latest move from history or null
+     * 
+     * @param moveHistory
+     * @return latest Move or null
+     */
+    private Move getLastMove(MoveHistory moveHistory) {
+        List<Move> moveHistoryList = moveHistory.getHistoryList();
+        int historySize = moveHistoryList.size();
+
+        if (historySize > 0)
+            return moveHistoryList.get(historySize - 1);
+        return null;
+    }
+
 }
