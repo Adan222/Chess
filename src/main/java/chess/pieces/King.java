@@ -44,6 +44,35 @@ public class King extends Piece {
         return false;
     }
 
+    /**
+     * Check if King has moved before
+     * 
+     * @param moveHistory
+     * @return true if moved, false if not
+     */
+    private boolean rookMoved(Piece rook, MoveHistory moveHistory) {
+        List<Move> moveHistoryList = moveHistory.getHistoryList();
+
+        for (Move move : moveHistoryList) {
+            if (move.getSourcePiece() == rook)
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if King has non default location
+     */
+    private boolean hasDefaultLocation(int x, int y) {
+        boolean isWhite = this.getColor() == Color.White;
+
+        int defaultX = 4;
+        int defaultY = isWhite ? 7 : 0;
+
+        return (x == defaultX) && (y == defaultY);
+    }
+
     @Override
     public List<Move> getMoves(int x, int y, ChessBoard chessBoard, MoveHistory moveHistory) {
         List<Move> moveList = new ArrayList<>();
@@ -69,23 +98,23 @@ public class King extends Piece {
         }
 
         // Castling
-        if (!kingMoved(moveHistory)) {
+        if (!kingMoved(moveHistory) && hasDefaultLocation(x, y)) {
             int my = isWhite ? 7 : 0;
-
-            // TODO: Check if Rook moved or doesn't exist
 
             // Long castling
             int lcx = x - 2;
             if (board[lcx][my].getPiece() == null) {
                 Piece rook = board[0][my].getPiece();
-                moveList.add(new Move(x, y, x - 2, my, this, rook, Move.Type.LongCastling));
+                if (rook != null && !rookMoved(rook, moveHistory))
+                    moveList.add(new Move(x, y, x - 2, my, this, rook, Move.Type.LongCastling));
             }
 
             // Short castling
             int scx = x + 2;
             if (board[scx][my].getPiece() == null) {
                 Piece rook = board[7][my].getPiece();
-                moveList.add(new Move(x, y, x + 2, my, this, rook, Move.Type.ShortCastling));
+                if (rook != null && !rookMoved(rook, moveHistory))
+                    moveList.add(new Move(x, y, x + 2, my, this, rook, Move.Type.ShortCastling));
             }
         }
 
