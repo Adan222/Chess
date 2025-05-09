@@ -28,12 +28,12 @@ public class Pawn extends Piece {
         // One-step forward move
         int forwardY = y + moveDirection;
         if (isWithinBounds(x, forwardY) && board[x][forwardY].getPiece() == null) {
-            moveList.add(new Move(x, y, x, forwardY, Move.Type.Movement));
+            moveList.add(new Move(x, y, x, forwardY, this, null, Move.Type.Movement));
 
             // Two-step forward move from starting row
             int doubleForwardY = y + 2 * moveDirection;
             if (y == startRow && board[x][doubleForwardY].getPiece() == null)
-                moveList.add(new Move(x, y, x, doubleForwardY, Move.Type.Movement));
+                moveList.add(new Move(x, y, x, doubleForwardY, this, null, Move.Type.Movement));
         }
 
         // Diagonal captures (left and right)
@@ -47,13 +47,14 @@ public class Pawn extends Piece {
 
             Piece targetPiece = board[targetX][targetY].getPiece();
             if (targetPiece != null && targetPiece.getColor() != pawn.getColor())
-                moveList.add(new Move(x, y, targetX, targetY, Move.Type.Beat));
+                moveList.add(new Move(x, y, targetX, targetY, this, targetPiece, Move.Type.Beat));
         }
 
         // En Passant
         Move lastMove = getLastMove(moveHistory);
         if (lastMove != null) {
             Piece piece = lastMove.getSourcePiece();
+
             if (piece instanceof Pawn) {
                 // Pawn has to be on the left or right from our pawn
                 int dx = lastMove.getTargetX() - x;
@@ -71,7 +72,7 @@ public class Pawn extends Piece {
                     int targetPieceY = lastMove.getTargetY();
                     int eny = targetPieceY + (isTargetWhite ? 1 : -1);
 
-                    moveList.add(new Move(x, y, enx, eny, Move.Type.EnPassant));
+                    moveList.add(new Move(x, y, enx, eny, this, piece, Move.Type.EnPassant));
                 }
             }
         }
