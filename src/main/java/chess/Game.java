@@ -30,8 +30,8 @@ public class Game {
     public void makeMove(int oldX, int oldY, int newX, int newY) {
         MoveValidator validator = new MoveValidator(chessBoard, moveHistory);
 
-        Move move = new Move(oldX, oldY, newX, newY, chessBoard);
-        if (validator.validate(move)) {
+        Move move = validator.validateMove(oldX, oldY, newX, newY);
+        if (move != null) {
             chessBoard.makeMove(move);
             chessFrame.getChessPanel().makeMove(move);
             moveHistory.addMove(move);

@@ -51,9 +51,22 @@ public class MoveValidator {
      * @param newY
      * @return
      */
-    public boolean validate(Move move) {
+    private boolean validate(Move move) {
         return hasPositionChanged(move)
                 && isTargetOpponentPiece(move);
+    }
+
+    public Move validateMove(int oldX, int oldY, int newX, int newY) {
+        Move sMove = new Move(oldX, oldY, newX, newY, chessBoard);
+        if (!validate(sMove))
+            return null;
+
+        List<Move> movesForSource = getMovesFor(oldX, oldY);
+        for (Move move : movesForSource) {
+            if (move.getTargetX() == newX && move.getTargetY() == newY)
+                return move;
+        }
+        return null;
     }
 
     /**
