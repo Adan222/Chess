@@ -34,6 +34,18 @@ public class Move {
         this.type = type;
     }
 
+    public Move(int sourceX, int sourceY, int targetX, int targetY, Piece sourcePiece, Piece targetPiece, Type type) {
+        this.sourceX = sourceX;
+        this.sourceY = sourceY;
+        this.targetX = targetX;
+        this.targetY = targetY;
+
+        this.sourcePiece = sourcePiece;
+        this.targetPiece = targetPiece;
+
+        this.type = type;
+    }
+
     public Move(int sourceX, int sourceY, int targetX, int targetY, ChessBoard chessBoard) {
         this.sourceX = sourceX;
         this.sourceY = sourceY;
