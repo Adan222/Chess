@@ -35,6 +35,12 @@ public class Game {
             chessBoard.makeMove(move);
             chessFrame.getChessPanel().makeMove(move);
             moveHistory.addMove(move);
+
+            if (validator.isCheckMove(move)) {
+                System.out.println("CHECK");
+                if (validator.isMateMove(move))
+                    System.out.println("MATE");
+            }
         }
     }
 

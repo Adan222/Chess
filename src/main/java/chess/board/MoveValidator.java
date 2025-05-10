@@ -6,6 +6,8 @@ import java.util.List;
 
 /** Chess */
 import chess.pieces.Piece;
+import chess.pieces.Piece.Color;
+import chess.pieces.King;
 import chess.Move;
 import chess.MoveHistory;
 
@@ -87,5 +89,55 @@ public class MoveValidator {
         List<Move> pieceMoves = piece.getMoves(x, y, chessBoard, moveHistory);
 
         return pieceMoves;
+    }
+
+    /**
+     * Check if this move has triggered check on King
+     * 
+     * @param move
+     * @return
+     */
+    public boolean isCheckMove(Move move) {
+        Field[][] board = chessBoard.getBoard();
+
+        int targetX = move.getTargetX();
+        int targetY = move.getTargetY();
+
+        Piece piece = board[targetX][targetY].getPiece();
+        List<Move> targetMoves = piece.getMoves(targetX, targetY, chessBoard, moveHistory);
+
+        for (Move m : targetMoves) {
+            Piece movePiece = m.getTargetPiece();
+            if (movePiece != null && movePiece instanceof King)
+                return true;
+        }
+        return false;
+    }
+
+    private List<Move> getKingMoves(Color color) {
+        Field[][] board = chessBoard.getBoard();
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                Piece piece = board[x][y].getPiece();
+                if (piece != null && piece instanceof King && piece.getColor() == color)
+                    return piece.getMoves(x, y, chessBoard, moveHistory);
+            }
+        }
+        return null;
+    }
+
+    public boolean isMateMove(Move move) {
+        Field[][] board = chessBoard.getBoard();
+
+        int targetX = move.getTargetX();
+        int targetY = move.getTargetY();
+
+        Piece piece = board[targetX][targetY].getPiece();
+        Color pieceColor = piece.getColor();
+
+        List<Move> kingMoves = getKingMoves((pieceColor == Color.White) ? Color.Black : Color.White);
+
+        return kingMoves.size() == 0;
     }
 }
