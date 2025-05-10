@@ -34,13 +34,13 @@ public class Bishop extends Piece {
             while (nx >= 0 && nx <= 7 && ny >= 0 && ny <= 7) {
                 Piece piece = board[nx][ny].getPiece();
                 if (piece == null) {
-                    moveList.add(new Move(x, y, nx, ny, Move.Type.Movement));
+                    moveList.add(new Move(x, y, nx, ny, this, null, Move.Type.Movement));
                     nx += dx;
                     ny += dy;
                 } else {
                     Color otherPieceColor = piece.getColor();
                     if (color != otherPieceColor)
-                        moveList.add(new Move(x, y, nx, ny, Move.Type.Beat));
+                        moveList.add(new Move(x, y, nx, ny, this, piece, Move.Type.Beat));
                     break;
                 }
             }
