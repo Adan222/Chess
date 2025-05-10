@@ -18,9 +18,13 @@ public class MoveValidator {
     private ChessBoard chessBoard;
     private MoveHistory moveHistory;
 
-    public MoveValidator(ChessBoard chessBoard, MoveHistory moveHistory) {
+    Color playerTurn;
+
+    public MoveValidator(ChessBoard chessBoard, MoveHistory moveHistory, Color playerTurn) {
         this.chessBoard = chessBoard;
         this.moveHistory = moveHistory;
+
+        this.playerTurn = playerTurn;
     }
 
     /** Validation functions */
@@ -44,6 +48,10 @@ public class MoveValidator {
         return target == null || source.getColor() != target.getColor();
     }
 
+    private boolean isRightPlayerTurn(Move move) {
+        return playerTurn == move.getSourcePiece().getColor();
+    }
+
     /**
      * Validate move
      * 
@@ -55,7 +63,8 @@ public class MoveValidator {
      */
     private boolean validate(Move move) {
         return hasPositionChanged(move)
-                && isTargetOpponentPiece(move);
+                && isTargetOpponentPiece(move)
+                && isRightPlayerTurn(move);
     }
 
     public Move validateMove(int oldX, int oldY, int newX, int newY) {
