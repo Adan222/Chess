@@ -20,3 +20,16 @@ make all
 - Java (JDK 8+)
 - Java Swing (GUI)
 - Object-Oriented Programming (OOP)
+
+# License
+
+## Code
+
+The code is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+You can freely use, modify, and distribute the code, as long as you include the original
+copyright notice and disclaimers.
+
+## Chess piece sprites
+
+Chess piece sprites by Uray M. János, licensed under CC BY-SA 3.0 Unported.
+Source: https://greenchess.net/info.php?item=downloads

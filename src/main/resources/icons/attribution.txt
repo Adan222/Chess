@@ -1,0 +1,4 @@
+Chess piece sprites by Uray M. János
+Licensed under CC BY-SA 3.0 Unported
+https://creativecommons.org/licenses/by-sa/3.0/
+Source: https://greenchess.net/info.php?item=downloads
